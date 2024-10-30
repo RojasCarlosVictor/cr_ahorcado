@@ -1,18 +1,18 @@
 <?php
 $servername = "localhost";
-$username = "usuario"; // Cambia esto por tu usuario de base de datos
-$password = "contraseña"; // Cambia esto por tu contraseña de base de datos
+$username = "usuario"; 
+$password = "contraseña"; 
 $dbname = "cr_parcial_plp3";
 
-// Crear conexión
+// Crear conexion
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar conexión
+// Verifica conexion
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Función para obtener una palabra aleatoria
+// Funcion para obtener una palabra aleatoria
 function obtenerPalabraAleatoria($conn) {
     $sql = "SELECT palabra FROM palabras ORDER BY RAND() LIMIT 1";
     $result = $conn->query($sql);
