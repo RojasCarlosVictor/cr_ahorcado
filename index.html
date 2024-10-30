@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cr_estilos.css">
+    <title>El Ahorcado - Carlos Rojas</title>
+</head>
+<body>
+    <header class="cr_header">
+        <img src="cr_imagenes/cr_logo.jpg" alt="Logo del Ahorcado">
+        <h1>Juego del Ahorcado</h1>
+    </header>
+    <main>
+        <section id="juego">
+            <h2>Palabra a Adivinar</h2>
+            <div id="palabra"></div>
+            <canvas id="canvas" width="200" height="200"></canvas>
+            <h2>Intentos Restantes: <span id="intentos"></span></h2>
+            <input type="text" id="letra" maxlength="1">
+            <button id="adivinar">Adivinar</button>
+            <div id="resultado"></div>
+            <h2>Letras Adivinadas: <span id="letras-adivinadas"></span></h2>
+            <h3>Te dare una pista "Eje"</h3>
+        </section>
+    </main>
+    <script src="cr_script.js"></script>
+</body>
+</html>

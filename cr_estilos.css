@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.cr_header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+}
+
+#juego {
+    border: 2px solid #4CAF50;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+input[type="text"] {
+    width: 50px;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+/* Código CSS existente aquí... */
+
+#canvas {
+    border: 2px solid #4CAF50;
+    margin: 10px 0;
+}
