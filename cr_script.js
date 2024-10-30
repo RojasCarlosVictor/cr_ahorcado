@@ -8,18 +8,19 @@ const contexto = canvas.getContext('2d');
 
 document.getElementById('adivinar').onclick = function() {
     const letraInput = document.getElementById('letra');
-    const letra = letraInput.value.toLowerCase();
+    const letra = letraInput.value.toLowerCase().trim(); // Trim para eliminar espacios en blanco
 
+    // Verificar que la letra no esté vacía y no haya sido adivinada previamente
     if (letra && !letrasAdivinadas.includes(letra)) {
         letrasAdivinadas.push(letra);
         if (!palabraSecreta.includes(letra)) {
             intentosRestantes--;
             dibujarAhorcado();
         }
+        actualizarJuego();
     }
 
-    letraInput.value = '';
-    actualizarJuego();
+    letraInput.value = ''; // Limpiar el input después de la adivinanza
 };
 
 function actualizarJuego() {
@@ -28,6 +29,7 @@ function actualizarJuego() {
     document.getElementById('intentos').innerText = intentosRestantes;
     document.getElementById('letras-adivinadas').innerText = letrasAdivinadas.join(', ');
 
+    // Comprobar si el jugador ha ganado o perdido
     if (intentosRestantes === 0) {
         document.getElementById('resultado').innerText = "¡Perdiste! La palabra era: " + palabraSecreta;
     } else if (!palabraMostrada.includes('_')) {
@@ -36,7 +38,7 @@ function actualizarJuego() {
     }
 }
 
-// Dibuja el  ahorcado
+// Dibuja el ahorcado
 function dibujarAhorcado() {
     switch (intentosRestantes) {
         case 5:
@@ -85,11 +87,31 @@ function dibujarAhorcado() {
 
 // Inicializar el juego
 function iniciarJuego() {
-    palabraSecreta = 'ejemplo';  // debe obtenida desde la base de datos
-    intentosRestantes = 6;
-    letrasAdivinadas = [];
-    contexto.clearRect(0, 0, canvas.width, canvas.height);  // Limpiar el lienzo
-    actualizarJuego();
+    fetch('cr_db.php')  // Cambia la ruta si es necesario
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la red: ' + response.statusText);
+            }
+            return response.json(); // Espera un JSON como respuesta
+        })
+        .then(data => {
+            if (data.error) {
+                console.error('Error:', data.error);
+                alert('Error al obtener la palabra. Inténtalo de nuevo.');
+            } else {
+                palabraSecreta = data.palabra;  // Establecer la palabra secreta desde la respuesta
+                
+                // Añadir una pista mostrando la primera letra
+                document.getElementById('pista').innerText = "Primera letra: " + palabraSecreta.charAt(0).toUpperCase(); // Añadir una pista
+
+                // Inicializar variables del juego
+                intentosRestantes = 6;
+                letrasAdivinadas = [];
+                contexto.clearRect(0, 0, canvas.width, canvas.height);  // Limpiar el lienzo
+                actualizarJuego();
+            }
+        })
+        .catch(error => console.error('Error al obtener la palabra:', error));
 }
 
-window.onload = iniciarJuego;
+window.onload = iniciarJuego;  // Inicia el juego al cargar la página
